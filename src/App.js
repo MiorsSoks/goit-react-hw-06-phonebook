@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
+import { useSelector, useDispatch } from 'react-redux'
 import ContactForm from './components/ContactForm';
 import Filter from './components/Filter';
 import ContactList from './components/ContactList';
+import { addItems, getContacts } from 'redux/contactsSlice';
 
 function App() {
+  const contactsRedux = useSelector(state => console.log(state.contacts.items))
+  const dispatch = useDispatch();
 
   const [contacts, setContacts] = useState([]);
   const [filter, setFilter] = useState('');
@@ -14,8 +18,8 @@ function App() {
     const contacts = localStorage.getItem('contacts');
     const parsedContacts = JSON.parse(contacts);
 
-    if (contacts) setContacts(parsedContacts);
-    console.log(localStorage.getItem('contacts'));
+    if (contacts)
+      setContacts(parsedContacts);
   }, []);
   
 
