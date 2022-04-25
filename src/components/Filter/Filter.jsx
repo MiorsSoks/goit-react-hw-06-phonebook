@@ -8,8 +8,9 @@ export default function Filter() {
 
   const changeOfFilter = e => {
     dispatch(addFilter(e.target.value));
-    console.log(e.target.value)
+    console.log(e.target.value);
   };
+
   return (
     <div>
       <Label htmlFor="filter">Find contacts by name</Label>

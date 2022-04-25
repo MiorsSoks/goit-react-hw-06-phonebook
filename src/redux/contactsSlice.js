@@ -11,14 +11,14 @@ const contactsSlice = createSlice({
   reducers: {
     addItems: (state, action) => {
       state.items.push(action.payload);
-      console.log(action.payload)
     },
     deleteItems: (state, action) => {
-      state.items.filter(contact => contact.id !== action.payload );
-      console.log(state.items)
+      state.items = state.items.filter(
+        contact => contact.id !== action.payload
+      );
     },
-    addFilter: (state, action )=> {
-      state.filter = `${action.payload}`;
+    addFilter: (state, action) => {
+      state.filter = action.payload;
     },
   },
 });
@@ -26,7 +26,7 @@ const contactsSlice = createSlice({
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['items']
+  whitelist: ['items'],
 };
 
 export const contactsReduser = persistReducer(
@@ -34,13 +34,9 @@ export const contactsReduser = persistReducer(
   contactsSlice.reducer
 );
 
-export const { addItems } = contactsSlice.actions;
-export const { addFilter } = contactsSlice.actions;
-export const { deleteItems } = contactsSlice.actions;
+export const { addItems, deleteItems, addFilter } = contactsSlice.actions;
 
 //Selectors
 
-export const getContacts = state => state.contacts.items
-export const getFilter = state => state.contacts.filter
-
-     // state.items.push({ id: '1', name: 'sffgs', number: '345'});
+export const getContacts = state => state.contacts.items;
+export const getFilter = state => state.contacts.filter;

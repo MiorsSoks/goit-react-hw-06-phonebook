@@ -19,7 +19,6 @@ export default function ContactForm() {
   const contactsRedux = useSelector(getContacts)
   const dispatch = useDispatch();
   const handleSubmit = ({name, number}, {resetForm}) => {
-    // onSubmit(name, number);
     const contact = {
       id: nanoid(),
       name: name,
