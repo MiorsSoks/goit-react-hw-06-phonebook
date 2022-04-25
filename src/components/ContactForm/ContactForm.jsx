@@ -1,5 +1,8 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
+import { useSelector, useDispatch } from 'react-redux'
+import { nanoid } from 'nanoid';
+import { addItems, getContacts } from 'redux/contactsSlice';
 import {
   Message,
   Label,
@@ -12,12 +15,29 @@ const schema = yup.object().shape({
   number: yup.number().required().positive().integer(),
 });
 
-export default function ContactForm({ onSubmit }) {
-
+export default function ContactForm() {
+  const contactsRedux = useSelector(getContacts)
+  const dispatch = useDispatch();
   const handleSubmit = ({name, number}, {resetForm}) => {
-    onSubmit(name, number);
+    // onSubmit(name, number);
+    const contact = {
+      id: nanoid(),
+      name: name,
+      number: number,
+    };
+        if (
+      !contactsRedux.find(
+        oldContact =>
+          oldContact.name.toLowerCase() === contact.name.toLowerCase()
+      )
+    ) {
+      dispatch(addItems(contact));
+    } else {
+      alert(`${contact.name} is already in contacts`);
+    }
     resetForm()
   };
+
 
   return (
     <Formik
