@@ -8,7 +8,6 @@ export default function Filter() {
 
   const changeOfFilter = e => {
     dispatch(addFilter(e.target.value));
-    console.log(e.target.value);
   };
 
   return (
